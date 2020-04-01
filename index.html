@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://cxjchen.github.io">
-  <title>笨笨鸭技术博</title>
+  <title>Sam&#39;s 技术博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="笨笨鸭技术博">
+<meta property="og:title" content="Sam&#39;s 技术博客">
 <meta property="og:url" content="http://cxjchen.github.io/index.html">
-<meta property="og:site_name" content="笨笨鸭技术博">
+<meta property="og:site_name" content="Sam&#39;s 技术博客">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Sam Chen">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="笨笨鸭技术博" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Sam&#39;s 技术博客" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -151,6 +151,103 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-CTF-MISC-图片隐写-如何判断图片被修改了宽高" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/31/CTF-MISC-%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E8%A2%AB%E4%BF%AE%E6%94%B9%E4%BA%86%E5%AE%BD%E9%AB%98/">[CTF-MISC][图片隐写]如何判断图片被修改了宽高</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/31/CTF-MISC-%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E8%A2%AB%E4%BF%AE%E6%94%B9%E4%BA%86%E5%AE%BD%E9%AB%98/" class="archive-article-date">
+  	<time datetime="2020-03-31T15:19:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="图片修改宽高判断"><a href="#图片修改宽高判断" class="headerlink" title="图片修改宽高判断"></a>图片修改宽高判断</h1><p>图片隐写题中修改图片的宽高是非常常用手段之一，如何快速判断图片修改了宽高呢？</p>
+<ol>
+<li>使用windows查看图片属性，会发现属性里的高度和16进制软件(010Editor、winhex、hxd)里提供的高宽数据不一样，这时候就可以怀疑宽高被修改了。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>注:有的时候是一致的，所以一致不代表没被修改</strong></li>
+<li>图片放入010Editor，自动载入自带的Template，左下角会提示CRC不匹配，这是因为修改了高宽，却没有修改CRC，导致读取报错。<br>看到这样的提示，说明图片高宽很可能被修改过。<br><img src="https://img-blog.csdnimg.cn/2020040111412281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>pngcheck、tweakpng检查图片会发现，都会提示CRC校验错误。<br><img src="https://img-blog.csdnimg.cn/20200401114239197.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200401120823570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>修改高或者宽，再查看图片会发现图片变乱了，无法正常显示，这说明这个高或者宽不能修改了，如果能正常显示，说明宽高被修改了，只管往大了修。<br><img src="https://img-blog.csdnimg.cn/20200401120952500.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ol>
+<h1 id="常见题型的处理"><a href="#常见题型的处理" class="headerlink" title="常见题型的处理"></a>常见题型的处理</h1><ol>
+<li>修改宽高，直接就可以看到flag，这里不需要做其他工作。</li>
+<li>修改宽高，并不会直接看到flag，需要放入stegsolve里或者做其它的进一步处理。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里会产生一个问题，那就是修改过宽高的图片stegsolve无法打开，提示IO错误。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是因为png图像的IHDR段中的高宽被修改，导致计算出来的CRC不正确，所以无法正确读取。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里有两种办法进行处理:  <ul>
+<li>使用脚本进行爆破，通过暴力破解的方式，爆破出被修改的宽高<br><a href="https://www.cnblogs.com/WangAoBo/p/7108278.html" target="_blank" rel="noopener">png中CRC检验错误的分析</a><br><a href="https://blog.csdn.net/qq_43625917/article/details/96161113?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">安恒2019-07 真正的CTFer里的脚本</a><br>这里直接引用别人所写的脚本，python2运行<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line"><span class="comment">#这段数据就是png图中IHDR段的16进制数据，不包括开始的length和最后CRC</span></span><br><span class="line"><span class="comment">#\x49\x48\x44\x52\x00\x00\x05\x1C\x00\x00\x05\x00\x08\x06\x00\x00\x00</span></span><br><span class="line"><span class="comment">#其中\x00\x00\x05\x1C表示宽度，\x00\x00\x05\x00表示高度</span></span><br><span class="line"></span><br><span class="line">crc32key = <span class="number">0x6F03AD71</span><span class="comment">#IHDR段中CRC值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">65535</span>):</span><br><span class="line">	height = struct.pack(<span class="string">'&gt;i'</span>, i)<span class="comment">#将整数转化成16进制</span></span><br><span class="line">	<span class="comment">#compute height</span></span><br><span class="line">	data = <span class="string">'\x49\x48\x44\x52\x00\x00\x05\x1c'</span>+height+<span class="string">'\x08\x06\x00\x00\x00'</span></span><br><span class="line">	<span class="comment">#compute width</span></span><br><span class="line">	<span class="comment">#data = '\x49\x48\x44\x52'+height+'\x00\x00\x09\xe4\x08\x06\x00\x00\x00'</span></span><br><span class="line"></span><br><span class="line">	crc32result = binascii.crc32(data) &amp; <span class="number">0xffffffff</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> crc32result == crc32key:</span><br><span class="line">		<span class="keyword">print</span> <span class="string">''</span>.join(map(<span class="keyword">lambda</span> c: <span class="string">"%02X"</span> % ord(c), height))</span><br></pre></td></tr></table></figure>
+通过碰撞的方法，计算出真实的宽高，再将图片的宽高修改为真实宽高。</li>
+<li>第二个方法更简单，在windows下对修改后的图片，右键点击编辑，然后再保存就可以了。</li>
+</ul>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">misc</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">图片隐写</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/31/CTF-MISC-%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E8%A2%AB%E4%BF%AE%E6%94%B9%E4%BA%86%E5%AE%BD%E9%AB%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-第一篇博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -320,6 +417,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CTF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">misc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">图片隐写</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
