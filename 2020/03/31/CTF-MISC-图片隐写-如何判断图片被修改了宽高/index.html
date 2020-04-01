@@ -15,18 +15,18 @@
 <meta property="og:site_name" content="Sam&#39;s 技术博客">
 <meta property="og:description" content="图片修改宽高判断图片隐写题中修改图片的宽高是非常常用手段之一，如何快速判断图片修改了宽高呢？  使用windows查看图片属性，会发现属性里的高度和16进制软件(010Editor、winhex、hxd)里提供的高宽数据不一样，这时候就可以怀疑宽高被修改了。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;注:有的时候是一致的，所以一致不代表没被修改 图片放入010Editor，自动载入">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020040111412281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020040111412281.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200401114239197.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200401120823570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200401120952500.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200401120823570.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200401120952500.png">
 <meta property="article:published_time" content="2020-03-31T15:19:47.000Z">
-<meta property="article:modified_time" content="2020-04-01T04:13:08.730Z">
+<meta property="article:modified_time" content="2020-04-01T04:50:28.336Z">
 <meta property="article:author" content="Sam Chen">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="misc">
 <meta property="article:tag" content="图片隐写">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2020040111412281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/2020040111412281.png">
   
     <link rel="alternative" href="/atom.xml" title="Sam&#39;s 技术博客" type="application/atom+xml">
   
@@ -185,9 +185,9 @@
         <h1 id="图片修改宽高判断"><a href="#图片修改宽高判断" class="headerlink" title="图片修改宽高判断"></a>图片修改宽高判断</h1><p>图片隐写题中修改图片的宽高是非常常用手段之一，如何快速判断图片修改了宽高呢？</p>
 <ol>
 <li>使用windows查看图片属性，会发现属性里的高度和16进制软件(010Editor、winhex、hxd)里提供的高宽数据不一样，这时候就可以怀疑宽高被修改了。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>注:有的时候是一致的，所以一致不代表没被修改</strong></li>
-<li>图片放入010Editor，自动载入自带的Template，左下角会提示CRC不匹配，这是因为修改了高宽，却没有修改CRC，导致读取报错。<br>看到这样的提示，说明图片高宽很可能被修改过。<br><img src="https://img-blog.csdnimg.cn/2020040111412281.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-<li>pngcheck、tweakpng检查图片会发现，都会提示CRC校验错误。<br><img src="https://img-blog.csdnimg.cn/20200401114239197.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200401120823570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-<li>修改高或者宽，再查看图片会发现图片变乱了，无法正常显示，这说明这个高或者宽不能修改了，如果能正常显示，说明宽高被修改了，只管往大了修。<br><img src="https://img-blog.csdnimg.cn/20200401120952500.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N4amNoZW4=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>图片放入010Editor，自动载入自带的Template，左下角会提示CRC不匹配，这是因为修改了高宽，却没有修改CRC，导致读取报错。<br>看到这样的提示，说明图片高宽很可能被修改过。<br><img src="https://img-blog.csdnimg.cn/2020040111412281.png" alt="在这里插入图片描述"></li>
+<li>pngcheck、tweakpng检查图片会发现，都会提示CRC校验错误。<br><img src="https://img-blog.csdnimg.cn/20200401114239197.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200401120823570.png" alt="在这里插入图片描述"></li>
+<li>修改高或者宽，再查看图片会发现图片变乱了，无法正常显示，这说明这个高或者宽不能修改了，如果能正常显示，说明宽高被修改了，只管往大了修。<br><img src="https://img-blog.csdnimg.cn/20200401120952500.png" alt="在这里插入图片描述"></li>
 </ol>
 <h1 id="常见题型的处理"><a href="#常见题型的处理" class="headerlink" title="常见题型的处理"></a>常见题型的处理</h1><ol>
 <li>修改宽高，直接就可以看到flag，这里不需要做其他工作。</li>
